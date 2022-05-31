@@ -17,17 +17,46 @@
     <h1>DevHaus Story</h1> 
 </body>
 <script>
-  const pickArticle = (word) => word.startsWith('a' || 'e' || 'i' || 'o' || 'u') ? 'an': 'a';
-  const getQuestionWord = (remainingQuestions) => remainingQuestions > 1 ? 'questions' : 'question';
+  // const pickArticle = (word) => word.startsWith('a' || 'e' || 'i' || 'o' || 'u') ? 'an': 'a';
+  function pickArticle(word) {
+    if(word.startsWith('a' || 'e' || 'i' || 'o' || 'u')) {
+      return 'an'
+    }
+    return 'a'
+  }
+  // const getQuestionWord = (remainingQuestions) => remainingQuestions > 1 ? 'questions' : 'question';
+  function getQuestionWord(remainingQuestions) {
+    if(remainingQuestions > 1) {
+      return 'questions'
+    }
+    return 'question'
+  }
+
   let questions = ["adjective", "verb", "noun"]
-  const [adjective, verb, noun] = questions.map((question, index, array) => {
-    const remainingQuestions = array.length - index
+  let adjective, verb, noun
+  for(let i = 0; i < questions.length; i++) {
+
+    const remainingQuestions = questions.length - i
     let answer
     while(!answer) {
-      answer = prompt(`Give me ${pickArticle(question)} ${question} [${remainingQuestions} ${getQuestionWord(remainingQuestions)} left]`)
+      answer = prompt(`Give me ${pickArticle(questions[i])} ${questions[i]} [${remainingQuestions} ${getQuestionWord(remainingQuestions)} left]`)
     } 
-    return answer
-  }) 
+    if(i === 0) {
+      adjective = answer
+    } else if(i === 1) {
+      verb = answer
+    } else {
+      noun = answer
+    }
+  }
+  // const [adjective, verb, noun] = questions.map((question, index, array) => {
+  //   const remainingQuestions = array.length - index
+  //   let answer
+  //   while(!answer) {
+  //     answer = prompt(`Give me ${pickArticle(question)} ${question} [${remainingQuestions} ${getQuestionWord(remainingQuestions)} left]`)
+  //   } 
+  //   return answer
+  // }) 
   document.write(`<p>The ${adjective} programmer wants to ${verb} the ${noun}<p>`)
 </script>
 </html>
